@@ -7,3 +7,6 @@ app.use(cors());
 app.use(express.json());
 
 const resolveRoutes = require('./routes/resolveRoutes');
+
+app.use('/api/resolve', resolveRoutes);
+
