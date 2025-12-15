@@ -59,7 +59,8 @@ function App() {
   return (
     <div className="container">
       <header className="header">
-        <h1>✨ ResolveAI</h1>
+        <h1><div className='logo'>✨</div>
+          ResolveAI</h1>
         <p>Your smart relationship assistant</p>
       </header>
 
@@ -85,7 +86,11 @@ function App() {
             onClick={handleAnalyze} 
             disabled={loading || !input}
           >
-            {loading ? 'Thinking...' : 'Find Solution 🔮'}
+            {loading ? 'Thinking...' : (
+              <>
+                🔍 Solution
+              </>
+            )}
           </button>
         </div>
       </div>
@@ -101,7 +106,6 @@ function App() {
           </ul>
 
           <div className="feedback-section">
-            <hr />
             {!feedbackGiven ? (
               <>
                 <p className="feedback-text">Was this helpful?</p>
@@ -116,6 +120,10 @@ function App() {
           </div>
         </div>
       )}
+
+      <footer className="footer">
+        <p className="footer-text">Upeksha & Praveen | Proj - CoupleCore - Data Collecting Phase | December 2025</p>
+      </footer>
     </div>
   );
 }
