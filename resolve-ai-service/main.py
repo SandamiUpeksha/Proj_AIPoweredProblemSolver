@@ -1,73 +1,44 @@
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
-app = FastAPI(title="ResolveAI Service")
+# >>> Step 01 - Initialize the App <<<
+app = FastAPI()
 
-# CORS configuration - allow all origins for now
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-class ProblemRequest(BaseModel):
+# >>> Step 02 - Define the data shape <<<
+class ProblemInput(BaseModel):
     text: str
 
-class PredictionResponse(BaseModel):
-    predicted_category: str
+# >>> Step 03 - The Logic (Vending Machine Rules) <<<
+def find_solution(text):
+    text = text.lower()
 
-# Simple keyword-based categorization
-def categorize_problem(text: str) -> str:
-    text_lower = text.lower()
+    # Category : Chores
+    if any(word in text for word in ["clean", "dishes", "laundry", "trash", "messy"]):
+        return "Chores", ["Create a shared chore chart", "Do the task together with music on"]
     
-    # Communication issues
-    if any(word in text_lower for word in ['talk', 'communication', 'listen', 'understand', 'express', 'conversation']):
-        return 'Communication Issues'
+    # Category : Finances
+    elif any(word in text for word in ["money", "expensive", "bill", "cost", "spend"]):
+        return "Finances", ["Set a weekly budget review", "Agree on a spending limit"]
     
-    # Trust issues
-    elif any(word in text_lower for word in ['trust', 'lie', 'honest', 'secret', 'hide', 'cheating', 'faithful']):
-        return 'Trust Issues'
+    # Category : Affection/Attention
+    elif any(word in text for word in ["ignore", "love", "sex", "kiss", "time", "phone", "call", "answer"]):
+        return "Affection", ["Schedule a date night", "No-phone rule after 8 PM"]
     
-    # Time management
-    elif any(word in text_lower for word in ['time', 'busy', 'schedule', 'work', 'balance', 'quality time']):
-        return 'Time Management'
-    
-    # Financial disagreements
-    elif any(word in text_lower for word in ['money', 'financial', 'budget', 'expense', 'spend', 'save', 'bill', 'debt']):
-        return 'Financial Disagreements'
-    
-    # Intimacy concerns
-    elif any(word in text_lower for word in ['intimacy', 'sex', 'physical', 'affection', 'romance', 'love']):
-        return 'Intimacy Concerns'
-    
-    # Family & in-laws
-    elif any(word in text_lower for word in ['family', 'parents', 'in-laws', 'mother', 'father', 'relatives']):
-        return 'Family & In-laws'
-    
-    # Different values
-    elif any(word in text_lower for word in ['values', 'beliefs', 'religion', 'politics', 'principles', 'opinions']):
-        return 'Different Values'
-    
-    # Jealousy
-    elif any(word in text_lower for word in ['jealous', 'envy', 'insecure', 'possessive', 'attention']):
-        return 'Jealousy'
-    
-    # Default category
+    # Default : (If we don't know)
     else:
-        return 'Other'
+        return "General", ["Use 'I feel' statements", "Take a calm timeout before talking"]
 
+# >>> Step 04 - The API Endpoint <<<
+@app.post("/predict")
+async def predict_solution(input_data: ProblemInput):
+    category, solutions = find_solution(input_data.text)
+
+    return {
+        "category": category,
+        "suggested_solutions": solutions
+    }
+
+# >>> Step 05 - Simple check to see whether the running is okay <<<
 @app.get("/")
-async def root():
-    return {"message": "ResolveAI Service is running", "status": "healthy"}
-
-@app.post("/predict", response_model=PredictionResponse)
-async def predict(request: ProblemRequest):
-    category = categorize_problem(request.text)
-    return {"predicted_category": category}
-
-@app.get("/health")
-async def health_check():
-    return {"status": "healthy"}
+def home():
+    return {"message": "ResolveAI is running"}
