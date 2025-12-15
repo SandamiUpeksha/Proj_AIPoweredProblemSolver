@@ -1,8 +1,8 @@
 const axios = require('axios');
 
-exports.analyzeProblem = async (requestAnimationFrame, res) => {
+exports.analyzeProblem = async (req, res) => {
     try {
-        const { problemText } = requestAnimationFrame.body;
+        const { problemText } = req.body;
         console.log("Received problem:", problemText);
 
         // 1. Call Python Serice (Port 8000)
@@ -19,7 +19,7 @@ exports.analyzeProblem = async (requestAnimationFrame, res) => {
         });
         
     } catch (error) {
-        console.error("❌ Error:", error.message);
+        console.error("Error:", error.message);
         res.status(500).json({ msg: "AI Service is offline" });
     }
 };
