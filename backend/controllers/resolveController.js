@@ -2,6 +2,8 @@
 const axios = require('axios');
 const ProblemLog = require('../models/ProblemLog');
 
+const AI_SERVICE_URL = process.env.AI_SERVICE_URL || 'http://127.0.0.1:8000';
+
 // 1. ANALYZE PROBLEM
 exports.analyzeProblem = async (req, res) => {
   try {
@@ -11,7 +13,7 @@ exports.analyzeProblem = async (req, res) => {
     // ---------------------------------------------------------
     // STEP A: Get Answer from AI (Critical - Must Work)
     // ---------------------------------------------------------
-    const aiResponse = await axios.post('http://127.0.0.1:8000/predict', {
+    const aiResponse = await axios.post(`${AI_SERVICE_URL}/predict`, {
       text: problemText
     });
     const { category, suggested_solutions } = aiResponse.data;

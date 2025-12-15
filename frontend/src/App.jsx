@@ -2,6 +2,8 @@ import { useState } from 'react';
 import axios from 'axios';
 import './App.css';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 function App() {
   const [input, setInput] = useState('');
   const [result, setResult] = useState(null); 
@@ -33,7 +35,7 @@ function App() {
     setFeedbackGiven(false);
 
     try {
-      const response = await axios.post('http://localhost:5000/api/resolve/analyze', {
+      const response = await axios.post(`${API_URL}/api/resolve/analyze`, {
         problemText: input
       });
       setResult(response.data);
@@ -46,7 +48,7 @@ function App() {
 
   const handleFeedback = async (isHelpful) => {
     try {
-      await axios.post('http://localhost:5000/api/resolve/feedback', {
+      await axios.post(`${API_URL}/api/resolve/feedback`, {
         logId: result.logId,
         wasHelpful: isHelpful
       });
@@ -59,8 +61,10 @@ function App() {
   return (
     <div className="container">
       <header className="header">
-        <h1><div className='logo'>✨</div>
-          ResolveAI</h1>
+        <div className="logo-container">
+          <img src="/logo.png" alt="SilverMoonAI Logo" className="logo" />
+        </div>
+        <h1>SilverMoonAI</h1>
         <p>Your smart relationship assistant</p>
       </header>
 

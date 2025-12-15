@@ -24,10 +24,22 @@ body {
   text-align: center;
   margin-bottom: 40px;
 }
-.header .logo {
-    padding-top: 1.0rem;
-    
+
+.logo-container {
+  /* margin-bottom: 20px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+.logo {
+  width: 140px;
+  height: 100px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+  display: block;
+}
+
 .header h1 { 
   color: #ffffff; 
   margin: 0; 

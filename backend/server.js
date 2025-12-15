@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose'); // MongoDB
@@ -5,13 +6,18 @@ const mongoose = require('mongoose'); // MongoDB
 const app = express();
 
 // Middleware (allows us to read JSON data)
-app.use(cors());
+const corsOptions = {
+  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+  optionsSuccessStatus: 200
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // ------------------
 // CONNECT TO MONGODB ATLAS
 // ------------------
-mongoose.connect('mongodb+srv://pdsilva496_db_user:4jL8YCFoDnyfeFaY@couple-app.vxmmkoi.mongodb.net/couple-app?retryWrites=true&w=majority&appName=couple-app')
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://pdsilva496_db_user:4jL8YCFoDnyfeFaY@couple-app.vxmmkoi.mongodb.net/couple-app?retryWrites=true&w=majority&appName=couple-app';
+mongoose.connect(MONGODB_URI)
 .then(() => console.log("✅ MongoDB Atlas Connected to 'couple-app' database"))
 .catch(err => console.log("❌ MongoDB Error:", err));
 
@@ -46,7 +52,7 @@ app.get('/test-logs', async (req, res) => {
 // 👆👆👆 END DEBUG ROUTE 👆👆👆
 
 // Start the server
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
