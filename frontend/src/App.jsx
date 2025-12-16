@@ -78,14 +78,6 @@ function App() {
 
         <div className="button-group">
           <button 
-            className="btn-clear" 
-            onClick={handleClear}
-            disabled={!input}
-          >
-            🗑️ Clear
-          </button>
-
-          <button 
             className="btn-primary" 
             onClick={handleAnalyze} 
             disabled={loading || !input}
@@ -95,6 +87,13 @@ function App() {
                 🔍 Solution
               </>
             )}
+          </button>
+          <button 
+            className="btn-clear" 
+            onClick={handleClear}
+            disabled={!input}
+          >
+            🗑️ Clear
           </button>
         </div>
       </div>
