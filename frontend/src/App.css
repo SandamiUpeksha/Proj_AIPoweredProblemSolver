@@ -267,3 +267,154 @@ button {
   letter-spacing: 0.5px;
 }
 
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+    max-width: 100%;
+  }
+
+  .header {
+    margin-bottom: 25px;
+  }
+
+  .logo {
+    width: 100px;
+    height: 75px;
+  }
+
+  .header h1 {
+    font-size: 2rem;
+    letter-spacing: 1px;
+  }
+
+  .header p {
+    font-size: 0.95rem;
+    margin-top: 5px;
+  }
+
+  .card {
+    padding: 20px;
+    border-radius: 20px;
+  }
+
+  textarea {
+    padding: 15px;
+    font-size: 16px;
+    min-height: 120px;
+    border-radius: 15px;
+  }
+
+  .button-group {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  button {
+    width: 100% !important;
+    padding: 16px 20px;
+    height: 55px;
+    font-size: 16px;
+  }
+
+  .btn-primary,
+  .btn-clear {
+    width: 100% !important;
+  }
+
+  .result-card {
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 20px;
+  }
+
+  .result-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+  }
+
+  .result-card li {
+    padding: 14px;
+    font-size: 15px;
+    border-radius: 12px;
+  }
+
+  .category-badge {
+    padding: 6px 16px;
+    font-size: 12px;
+    margin-bottom: 15px;
+  }
+
+  .feedback-section {
+    margin-top: 20px;
+    padding-top: 20px;
+  }
+
+  .feedback-text {
+    font-size: 14px;
+  }
+
+  .feedback-buttons {
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .btn-thumb {
+    width: 48%;
+    height: 45px;
+    font-size: 14px;
+  }
+
+  .footer {
+    margin-top: 2rem;
+    padding: 1rem 0;
+  }
+
+  .footer-text {
+    font-size: 0.75rem;
+    padding: 0 10px;
+    line-height: 1.4;
+  }
+}
+
+/* Extra small devices (phones in portrait, less than 576px) */
+@media (max-width: 576px) {
+  .container {
+    padding: 12px;
+  }
+
+  .header h1 {
+    font-size: 1.75rem;
+  }
+
+  .header p {
+    font-size: 0.9rem;
+  }
+
+  .card {
+    padding: 18px;
+  }
+
+  textarea {
+    padding: 12px;
+    font-size: 15px;
+  }
+
+  .result-card {
+    padding: 18px;
+  }
+
+  .result-card h3 {
+    font-size: 1.25rem;
+  }
+
+  .result-card li {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .footer-text {
+    font-size: 0.7rem;
+  }
+}
+
